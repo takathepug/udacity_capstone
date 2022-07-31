@@ -23,8 +23,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // set action bar populated with activity's option menu
         setSupportActionBar(binding.appBarMain.toolbar)
 
+        // fab in small and w600dp
         binding.appBarMain.fab?.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
@@ -34,6 +37,7 @@ class MainActivity : AppCompatActivity() {
             (supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment?)!!
         val navController = navHostFragment.navController
 
+        // in w600dp
         binding.navView?.let {
             appBarConfiguration = AppBarConfiguration(
                 setOf(
@@ -45,6 +49,7 @@ class MainActivity : AppCompatActivity() {
             it.setupWithNavController(navController)
         }
 
+        // in < w600dp
         binding.appBarMain.contentMain.bottomNavView?.let {
             appBarConfiguration = AppBarConfiguration(
                 setOf(
@@ -69,6 +74,7 @@ class MainActivity : AppCompatActivity() {
         return result
     }
 
+    // options menu item clicked
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_settings -> {

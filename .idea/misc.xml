@@ -4,11 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/EyE/AndroidStudioProjects/udacity_capstone/app/src/main/res/layout-w1240dp/activity_main.xml" value="0.129296875" />
-        <entry key="..\:/Users/EyE/AndroidStudioProjects/udacity_capstone/app/src/main/res/layout-w1240dp/content_main.xml" value="0.130078125" />
+        <entry key="..\:/Users/EyE/AndroidStudioProjects/udacity_capstone/app/src/main/res/layout-w1240dp/app_bar_main.xml" value="0.2296875" />
+        <entry key="..\:/Users/EyE/AndroidStudioProjects/udacity_capstone/app/src/main/res/layout-w1240dp/content_main.xml" value="0.2" />
         <entry key="..\:/Users/EyE/AndroidStudioProjects/udacity_capstone/app/src/main/res/layout-w600dp/activity_main.xml" value="0.17239583333333333" />
         <entry key="..\:/Users/EyE/AndroidStudioProjects/udacity_capstone/app/src/main/res/layout-w600dp/content_main.xml" value="0.1734375" />
         <entry key="..\:/Users/EyE/AndroidStudioProjects/udacity_capstone/app/src/main/res/layout-w600dp/fragment_transform.xml" value="0.1734375" />
         <entry key="..\:/Users/EyE/AndroidStudioProjects/udacity_capstone/app/src/main/res/layout-w600dp/item_transform.xml" value="0.1734375" />
+        <entry key="..\:/Users/EyE/AndroidStudioProjects/udacity_capstone/app/src/main/res/layout/activity_authentication.xml" value="0.30648148148148147" />
         <entry key="..\:/Users/EyE/AndroidStudioProjects/udacity_capstone/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/EyE/AndroidStudioProjects/udacity_capstone/app/src/main/res/layout/app_bar_main.xml" value="0.30648148148148147" />
         <entry key="..\:/Users/EyE/AndroidStudioProjects/udacity_capstone/app/src/main/res/layout/content_main.xml" value="0.19895833333333332" />
@@ -16,6 +18,9 @@
         <entry key="..\:/Users/EyE/AndroidStudioProjects/udacity_capstone/app/src/main/res/layout/fragment_transform.xml" value="0.19895833333333332" />
         <entry key="..\:/Users/EyE/AndroidStudioProjects/udacity_capstone/app/src/main/res/layout/item_transform.xml" value="0.19895833333333332" />
         <entry key="..\:/Users/EyE/AndroidStudioProjects/udacity_capstone/app/src/main/res/layout/nav_header_main.xml" value="0.19895833333333332" />
+        <entry key="..\:/Users/EyE/AndroidStudioProjects/udacity_capstone/app/src/main/res/menu/bottom_navigation.xml" value="0.3128205128205128" />
+        <entry key="..\:/Users/EyE/AndroidStudioProjects/udacity_capstone/app/src/main/res/menu/navigation_drawer.xml" value="0.20729166666666668" />
+        <entry key="..\:/Users/EyE/AndroidStudioProjects/udacity_capstone/app/src/main/res/menu/overflow.xml" value="0.20729166666666668" />
       </map>
     </option>
   </component>
