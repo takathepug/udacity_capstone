@@ -37,6 +37,19 @@ class MainActivity : AppCompatActivity() {
             (supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment?)!!
         val navController = navHostFragment.navController
 
+        // in w1240dp
+        binding.appBarMain.contentMain.navView?.let {
+            appBarConfiguration = AppBarConfiguration(
+                setOf(
+                    R.id.nav_transform, R.id.nav_reflow, R.id.nav_slideshow, R.id.nav_settings
+                ),
+                binding.drawerLayout
+            )
+            setupActionBarWithNavController(navController, appBarConfiguration)
+
+            it.setupWithNavController(navController)
+        }
+
         // in w600dp
         binding.navView?.let {
             appBarConfiguration = AppBarConfiguration(
@@ -49,7 +62,7 @@ class MainActivity : AppCompatActivity() {
             it.setupWithNavController(navController)
         }
 
-        // in < w600dp
+        // < w600p
         binding.appBarMain.contentMain.bottomNavView?.let {
             appBarConfiguration = AppBarConfiguration(
                 setOf(
