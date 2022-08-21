@@ -12,3 +12,5 @@ Navigation and Firebase logout adapted to menus
 ### 2.2 Authentication via Firebase
 Two supported methods: Google and email/password
 Customized to use app's theme
+
+### 2.3 Timber logging

@@ -88,13 +88,6 @@ class MainActivity : AppCompatActivity() {
             it.setupWithNavController(navController)
         }
 
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            Timber.d("Navigating to ${destination.label}")
-
-            if(destination.id == R.id.menu_item_logout) {
-                // TODO
-            }
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

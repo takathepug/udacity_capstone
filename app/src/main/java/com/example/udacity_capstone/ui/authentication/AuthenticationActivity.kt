@@ -2,6 +2,8 @@ package com.example.udacity_capstone.ui.authentication
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.udacity_capstone.MainActivity
@@ -11,6 +13,7 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
 import com.google.firebase.auth.FirebaseAuth
+import timber.log.Timber
 
 class AuthenticationActivity : AppCompatActivity() {
 
@@ -34,6 +37,8 @@ class AuthenticationActivity : AppCompatActivity() {
         binding.buttonLogin.setOnClickListener {
             createSignInIntent()
         }
+
+        Timber.d("User in onCreate: ${FirebaseAuth.getInstance().currentUser}")
     }
 
     private fun createSignInIntent() {
@@ -66,10 +71,10 @@ class AuthenticationActivity : AppCompatActivity() {
             // Sign in failed.
             // If response is null the user canceled the sign-in flow using the back button.
             if (response == null) {
-                // TODO
+                Toast.makeText(this, R.string.login_cancelled_by_user, LENGTH_SHORT).show()
             } else {
                 val errorCode = response.error?.errorCode
-                // TODO
+                Toast.makeText(this, R.string.login_error, LENGTH_SHORT).show()
             }
         }
     }
