@@ -1,18 +1,22 @@
 package com.example.udacity_capstone
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.navigation.NavigationView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.appcompat.app.AppCompatActivity
 import com.example.udacity_capstone.databinding.ActivityMainBinding
+import com.example.udacity_capstone.ui.authentication.AuthenticationActivity
+import com.firebase.ui.auth.AuthUI
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -45,9 +49,14 @@ class MainActivity : AppCompatActivity() {
                 ),
                 binding.drawerLayout
             )
-            setupActionBarWithNavController(navController, appBarConfiguration)
 
+            setupActionBarWithNavController(navController, appBarConfiguration)
             it.setupWithNavController(navController)
+
+            it.menu.findItem(R.id.menu_item_logout).setOnMenuItemClickListener {
+                logout()
+                true
+            }
         }
 
         // in w600dp
@@ -58,8 +67,14 @@ class MainActivity : AppCompatActivity() {
                 ),
                 binding.drawerLayout
             )
+
             setupActionBarWithNavController(navController, appBarConfiguration)
             it.setupWithNavController(navController)
+
+            it.menu.findItem(R.id.menu_item_logout).setOnMenuItemClickListener {
+                logout()
+                true
+            }
         }
 
         // < w600p
@@ -71,6 +86,14 @@ class MainActivity : AppCompatActivity() {
             )
             setupActionBarWithNavController(navController, appBarConfiguration)
             it.setupWithNavController(navController)
+        }
+
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            Timber.d("Navigating to ${destination.label}")
+
+            if(destination.id == R.id.menu_item_logout) {
+                // TODO
+            }
         }
     }
 
@@ -94,6 +117,9 @@ class MainActivity : AppCompatActivity() {
                 val navController = findNavController(R.id.nav_host_fragment_content_main)
                 navController.navigate(R.id.nav_settings)
             }
+            R.id.menu_item_logout -> {
+                logout()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -102,4 +128,14 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
+    // utils
+    private fun logout() {
+        AuthUI.getInstance().signOut(this).addOnSuccessListener {
+            val logOutIntent = Intent(this, AuthenticationActivity::class.java)
+            startActivity(logOutIntent)
+            this.finish()
+        }
+    }
+
 }

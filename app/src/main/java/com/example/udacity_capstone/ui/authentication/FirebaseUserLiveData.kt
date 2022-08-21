@@ -34,19 +34,23 @@ class FirebaseUserLiveData : LiveData<FirebaseUser?>() {
     private val firebaseAuth = FirebaseAuth.getInstance()
 
     private val authStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
-        // query for the current user
+        // authentication state changed
         value = firebaseAuth.currentUser
     }
 
     // When this object has an active observer, start observing the FirebaseAuth state to see if
     // there is currently a logged in user.
     override fun onActive() {
+        super.onActive()
+
         firebaseAuth.addAuthStateListener(authStateListener)
     }
 
     // When this object no longer has an active observer, stop observing the FirebaseAuth state to
     // prevent memory leaks.
     override fun onInactive() {
+        super.onInactive()
+
         firebaseAuth.removeAuthStateListener(authStateListener)
     }
 }

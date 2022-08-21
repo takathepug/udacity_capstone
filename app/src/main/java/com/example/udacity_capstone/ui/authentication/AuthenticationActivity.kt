@@ -4,15 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
 import com.example.udacity_capstone.MainActivity
 import com.example.udacity_capstone.R
 import com.example.udacity_capstone.databinding.ActivityAuthenticationBinding
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult
-import com.google.android.gms.auth.api.identity.BeginSignInRequest
-import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.firebase.auth.FirebaseAuth
 
 class AuthenticationActivity : AppCompatActivity() {
@@ -47,6 +44,7 @@ class AuthenticationActivity : AppCompatActivity() {
         )
 
         // Create and launch sign-in intent
+        // TODO customize also with logo
         val signInIntent = AuthUI.getInstance()
             .createSignInIntentBuilder()
             .setAvailableProviders(providers)
@@ -54,14 +52,6 @@ class AuthenticationActivity : AppCompatActivity() {
             .build()
 
         signInLauncher.launch(signInIntent)
-    }
-
-    private fun signOut() {
-        AuthUI.getInstance()
-            .signOut(this)
-            .addOnCompleteListener {
-                // TODO
-            }
     }
 
     private fun onSignInResult(result: FirebaseAuthUIAuthenticationResult) {
