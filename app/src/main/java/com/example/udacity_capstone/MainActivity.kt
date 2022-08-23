@@ -25,6 +25,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // TODO check logout?
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
