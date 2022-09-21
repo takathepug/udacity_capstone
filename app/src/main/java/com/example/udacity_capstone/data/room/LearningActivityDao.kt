@@ -3,11 +3,9 @@ package com.example.udacity_capstone.data.room
 import androidx.room.Dao
 import androidx.room.Query
 
-import com.example.udacity_capstone.domain.model.LearningActivity
-
 
 @Dao
-interface ActivityDao {
+interface LearningActivityDao {
     @Query("SELECT * FROM activity")
-    fun getAll(): List<LearningActivity>
+    fun getAll(): List<LearningActivityDB>
 }

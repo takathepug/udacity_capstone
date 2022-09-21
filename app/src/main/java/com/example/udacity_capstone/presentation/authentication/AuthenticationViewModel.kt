@@ -1,4 +1,4 @@
-package com.example.udacity_capstone.ui.authentication
+package com.example.udacity_capstone.presentation.authentication
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map

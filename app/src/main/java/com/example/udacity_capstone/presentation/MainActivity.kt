@@ -1,4 +1,4 @@
-package com.example.udacity_capstone
+package com.example.udacity_capstone.presentation
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,12 +11,12 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.udacity_capstone.R
 import com.example.udacity_capstone.databinding.ActivityMainBinding
-import com.example.udacity_capstone.ui.authentication.AuthenticationActivity
+import com.example.udacity_capstone.presentation.authentication.AuthenticationActivity
 import com.firebase.ui.auth.AuthUI
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
-import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 

@@ -14,3 +14,6 @@ Two supported methods: Google and email/password
 Customized to use app's theme
 
 ### 2.3 Timber logging
+
+## Images
+Images from https://unsplash.com/

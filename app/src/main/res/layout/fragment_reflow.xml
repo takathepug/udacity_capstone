@@ -7,7 +7,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.reflow.ReflowFragment">
+        tools:context=".presentation.reflow.ReflowFragment">
 
         <TextView
             android:id="@+id/text_reflow"

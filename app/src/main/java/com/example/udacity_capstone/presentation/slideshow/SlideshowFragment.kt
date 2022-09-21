@@ -1,4 +1,4 @@
-package com.example.udacity_capstone.ui.slideshow
+package com.example.udacity_capstone.presentation.slideshow
 
 import android.os.Bundle
 import android.view.LayoutInflater

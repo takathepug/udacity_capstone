@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.udacity_capstone.ui.authentication
+package com.example.udacity_capstone.presentation.authentication
 
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.FirebaseAuth

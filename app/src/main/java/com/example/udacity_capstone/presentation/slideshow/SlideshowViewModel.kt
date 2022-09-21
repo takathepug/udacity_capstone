@@ -1,13 +1,13 @@
-package com.example.udacity_capstone.ui.reflow
+package com.example.udacity_capstone.presentation.slideshow
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class ReflowViewModel : ViewModel() {
+class SlideshowViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is reflow Fragment"
+        value = "This is slideshow Fragment"
     }
     val text: LiveData<String> = _text
 }

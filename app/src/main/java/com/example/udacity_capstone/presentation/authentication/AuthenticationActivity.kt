@@ -1,4 +1,4 @@
-package com.example.udacity_capstone.ui.authentication
+package com.example.udacity_capstone.presentation.authentication
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.udacity_capstone.MainActivity
+import com.example.udacity_capstone.presentation.MainActivity
 import com.example.udacity_capstone.R
 import com.example.udacity_capstone.databinding.ActivityAuthenticationBinding
 import com.firebase.ui.auth.AuthUI

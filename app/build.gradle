@@ -18,7 +18,7 @@ android {
      * compile your app. This means your app can use the API features included in
      * this API level and lower.
      */
-    compileSdk 32
+    compileSdk 33
 
     /**
      * The defaultConfig block encapsulates default settings and entries for all
@@ -32,7 +32,7 @@ android {
         // Defines the minimum API level required to run the app.
         minSdk 28
         // Specifies the API level used to test the app.
-        targetSdk 32
+        targetSdk 33
         // Defines the version number of your app.
         versionCode 1
         // Defines a user-friendly version name for your app.
@@ -82,20 +82,21 @@ android {
     buildFeatures {
         dataBinding true
     }
+    namespace 'com.example.udacity_capstone'
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.5.0'
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.1'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.2'
 
     // timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
@@ -111,7 +112,20 @@ dependencies {
     implementation "com.firebaseui:firebase-ui-auth:8.0.1"
 
     // Google play services
-    implementation 'com.google.android.gms:play-services-auth:20.2.0'
+    implementation 'com.google.android.gms:play-services-auth:20.3.0'
+
+    // Retrofit
+    // TODO: ProGuard users must manually add the options from retrofit2.pro. You might also need rules for OkHttp and Okio which are dependencies of this library.
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-scalars:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
+
+    // NOTE: this must match com.squareup.okhttp3:okhttp in retrofit dependency
+    implementation "com.squareup.okhttp3:logging-interceptor:3.14.9"
+
+    // Moshi
+    implementation "com.squareup.moshi:moshi:$moshiVersion"
+    implementation "com.squareup.moshi:moshi-kotlin:$moshiVersion"
 
     // testing
     testImplementation 'junit:junit:4.13.2'

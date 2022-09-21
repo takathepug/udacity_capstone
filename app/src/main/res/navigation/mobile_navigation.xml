@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/nav_transform"
-        android:name="com.example.udacity_capstone.ui.transform.TransformFragment"
+        android:name="com.example.udacity_capstone.presentation.transform.TransformFragment"
         android:label="@string/menu_transform"
         tools:layout="@layout/fragment_transform" />
 
     <fragment
         android:id="@+id/nav_reflow"
-        android:name="com.example.udacity_capstone.ui.reflow.ReflowFragment"
+        android:name="com.example.udacity_capstone.presentation.reflow.ReflowFragment"
         android:label="@string/menu_reflow"
         tools:layout="@layout/fragment_reflow" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.example.udacity_capstone.ui.slideshow.SlideshowFragment"
+        android:name="com.example.udacity_capstone.presentation.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="com.example.udacity_capstone.ui.settings.SettingsFragment"
+        android:name="com.example.udacity_capstone.presentation.settings.SettingsFragment"
         android:label="@string/menu_settings"
         tools:layout="@layout/fragment_settings" />
 
