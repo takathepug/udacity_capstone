@@ -1,16 +1,8 @@
 package com.example.udacity_capstone.data.room
 
-import androidx.room.ColumnInfo
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.Relation
-import com.example.udacity_capstone.domain.model.LearningActivity
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
-import java.time.OffsetDateTime
+import androidx.room.*
 
-// TODO https://developer.android.com/training/data-storage/room/referencing-data#type-converters
+
 @Entity(tableName = "materials")
 data class LearningMaterialsDB(
     @PrimaryKey(autoGenerate = true)
@@ -21,7 +13,6 @@ data class LearningMaterialsDB(
     val creationTime: String,
     @ColumnInfo(name = "description")
     val description: String?
-    // TODO FK val learningActivities: List<LearningActivity> = emptyList()
 )
 
 @Entity(tableName = "activity")
@@ -32,11 +23,11 @@ data class LearningActivityDB(
     val uuid: String,
     @ColumnInfo(name = "name")
     val name: String
-    // TODO FK Materials
 )
 
+// Relationship Materials -> Activities
 data class LearningMaterialsWithActivities(
-    @Embedded val materials: LearningMaterialsDB,
+    @Embedded val learningMaterials: LearningMaterialsDB,
     @Relation(
         parentColumn = "materialsId",
         entityColumn = "activityId"
@@ -50,16 +41,16 @@ data class QuestionDB(
     @ColumnInfo(name = "options")
     val options: List<String>,
     @ColumnInfo(name = "correct_option")
-    val correctOption: Int
-    // TODO FK ImageId
-    // TODO FK Activity
-)
-
-@Entity(tableName = "image")
-data class ImageDB(
-    @PrimaryKey
-    val imageId: Long,
+    val correctOption: Int,
     @ColumnInfo(name = "image")
     val image: String
-    // TODO BLOB pic
+)
+
+// Relationship Activity -> Questions
+data class LearningActivityWithQuestions(
+    @Embedded val learningActivity: LearningActivityDB,
+    @Relation(
+        parentColumn = "activityId",
+        entityColumn = "questionId"
+    ) val questions: List<QuestionDB>
 )

@@ -8,13 +8,17 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.udacity_capstone.R
+import com.example.udacity_capstone.data.NewMaterialsRepositoryApiImpl
 import com.example.udacity_capstone.databinding.FragmentTransformBinding
 import com.example.udacity_capstone.databinding.ItemTransformBinding
+import com.example.udacity_capstone.domain.usecase.CacheNewLearningMaterialsUseCase
+import com.example.udacity_capstone.domain.usecase.CacheNewLearningMaterialsUseCaseImpl
 
 /**
  * Fragment that demonstrates a responsive layout pattern where the format of the content
@@ -35,7 +39,11 @@ class TransformFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val transformViewModel = ViewModelProvider(this).get(TransformViewModel::class.java)
+        // val transformViewModel = ViewModelProvider(this).get(TransformViewModel::class.java)
+        val transformViewModel: TransformViewModel by viewModels {
+            TransformViewModel.Factory(
+                CacheNewLearningMaterialsUseCaseImpl(NewMaterialsRepositoryApiImpl()))
+        }
         _binding = FragmentTransformBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
