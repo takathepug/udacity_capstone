@@ -3,10 +3,12 @@ package com.example.udacity_capstone.data.room
 import androidx.room.*
 
 
+// https://stackoverflow.com/questions/53301274/room-insert-one-to-many-relation
+
 @Entity(tableName = "materials")
 data class LearningMaterialsDB(
     @PrimaryKey(autoGenerate = true)
-    val materialsId: Long,
+    var materialsId: Long?,
     @ColumnInfo(name = "uuid")
     val uuid: String,
     @ColumnInfo(name = "creation_time")
@@ -18,26 +20,17 @@ data class LearningMaterialsDB(
 @Entity(tableName = "activity")
 data class LearningActivityDB(
     @PrimaryKey(autoGenerate = true)
-    val activityId: Long,
+    val activityId: Long?,
     @ColumnInfo(name = "uuid")
     val uuid: String,
     @ColumnInfo(name = "name")
     val name: String
 )
 
-// Relationship Materials -> Activities
-data class LearningMaterialsWithActivities(
-    @Embedded val learningMaterials: LearningMaterialsDB,
-    @Relation(
-        parentColumn = "materialsId",
-        entityColumn = "activityId"
-    ) val activities: List<LearningActivityDB>
-)
-
 @Entity(tableName = "question")
 data class QuestionDB(
     @PrimaryKey(autoGenerate = true)
-    val questionId: Long,
+    val questionId: Long?,
     @ColumnInfo(name = "options")
     val options: List<String>,
     @ColumnInfo(name = "correct_option")
@@ -46,8 +39,18 @@ data class QuestionDB(
     val image: String
 )
 
+// Relationships
+// Relationship Materials -> Activities
+data class LearningMaterialsWithActivitiesDB(
+    @Embedded val learningMaterials: LearningMaterialsDB,
+    @Relation(
+        parentColumn = "materialsId",
+        entityColumn = "activityId"
+    ) val activities: List<LearningActivityWithQuestionsDB>
+)
+
 // Relationship Activity -> Questions
-data class LearningActivityWithQuestions(
+data class LearningActivityWithQuestionsDB(
     @Embedded val learningActivity: LearningActivityDB,
     @Relation(
         parentColumn = "activityId",

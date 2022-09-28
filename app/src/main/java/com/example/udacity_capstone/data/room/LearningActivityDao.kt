@@ -12,5 +12,5 @@ interface LearningActivityDao {
 
     @Transaction
     @Query("SELECT * FROM activity WHERE activityId = :activityId")
-    fun getLearningActivityWithQuestions(activityId: Long): List<LearningActivityWithQuestions>
+    fun getLearningActivityWithQuestions(activityId: Long): List<LearningActivityWithQuestionsDB>
 }

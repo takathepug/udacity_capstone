@@ -1,5 +1,8 @@
 package com.example.udacity_capstone.data.network
 
+import com.example.udacity_capstone.data.room.LearningActivityDB
+import com.example.udacity_capstone.data.room.LearningMaterialsDB
+import com.example.udacity_capstone.data.room.QuestionDB
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -15,6 +18,12 @@ data class LearningMaterialsDTO(
     val activities: List<LearningActivityDTO>
 )
 
+fun LearningMaterialsDTO.asDB(): LearningMaterialsDB {
+    return LearningMaterialsDB(
+null, uuid, creationTime, description
+    )
+}
+
 @JsonClass(generateAdapter = true)
 data class LearningActivityDTO(
     @Json(name = "uuid")
@@ -25,6 +34,12 @@ data class LearningActivityDTO(
     val questions: List<QuestionDTO>
 )
 
+fun LearningActivityDTO.asDB(): LearningActivityDB {
+    return LearningActivityDB(
+        null, uuid, name
+    )
+}
+
 @JsonClass(generateAdapter = true)
 data class QuestionDTO(
     @Json(name = "image")
@@ -34,3 +49,9 @@ data class QuestionDTO(
     @Json(name = "correct_option")
     val correctOption: Int
 )
+
+fun QuestionDTO.asDB(): QuestionDB {
+    return QuestionDB(
+        null, options, correctOption, image
+    )
+}
