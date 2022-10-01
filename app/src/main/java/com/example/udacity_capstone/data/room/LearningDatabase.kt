@@ -12,8 +12,6 @@ import androidx.room.TypeConverters
 @TypeConverters(Converters::class)
 abstract class LearningDatabase : RoomDatabase() {
     abstract val learningMaterialsDao: LearningMaterialsDao
-    abstract val learningActivityDao: LearningActivityDao
-    abstract val questionDao: QuestionDao
 
     companion object {
         private const val DATABASE_NAME = "learning_materials"

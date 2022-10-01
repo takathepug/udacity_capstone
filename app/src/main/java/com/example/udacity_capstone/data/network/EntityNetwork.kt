@@ -36,7 +36,7 @@ data class LearningActivityDTO(
 
 fun LearningActivityDTO.asDB(): LearningActivityDB {
     return LearningActivityDB(
-        null, uuid, name
+        null, null, uuid, name
     )
 }
 
@@ -52,6 +52,6 @@ data class QuestionDTO(
 
 fun QuestionDTO.asDB(): QuestionDB {
     return QuestionDB(
-        null, options, correctOption, image
+        null, null, options, correctOption, image
     )
 }
