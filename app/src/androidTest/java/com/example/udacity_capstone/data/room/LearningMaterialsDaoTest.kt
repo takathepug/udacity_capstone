@@ -34,68 +34,61 @@ class LearningMaterialsDaoTest {
 
     @Test
     fun insertLearningMaterialsAndGet() {
-        val newMaterial: LearningMaterialsDB = LearningMaterialsDB(
-            null,
-            "ABCD1234",
-            "2020-01-01",
-            "The description"
-        )
-
-        val insertedId = learningMaterialsDao.insertMaterials(newMaterial)
+        val newMaterials = Util.newLearningMaterials()
+        val insertedId = learningMaterialsDao.insertMaterials(newMaterials)
 
         val allMaterials = learningMaterialsDao.getAllMaterials()
 
         assert(1 == allMaterials.size)
 
-        newMaterial.materialsId = insertedId
-        Assert.assertEquals(newMaterial, allMaterials[0])
+        newMaterials.materialsId = insertedId
+        Assert.assertEquals(newMaterials, allMaterials[0])
     }
 
     @Test
     fun insertActivityAndGet() {
         // need LearningMaterials for FK
-        val newMaterial: LearningMaterialsDB = LearningMaterialsDB(
-            null,
-            "ABCD1234",
-            "2020-01-01",
-            "The description"
-        )
-        val insertedMaterialsId = learningMaterialsDao.insertMaterials(newMaterial)
+        val newMaterials = Util.newLearningMaterials()
+        val insertedMaterialsId = learningMaterialsDao.insertMaterials(newMaterials)
 
-        val newActivity: LearningActivityDB = LearningActivityDB(
-            null,
-            insertedMaterialsId,
-            "ABCD1234",
-            "The name"
-        )
-
-        val insertedId = learningMaterialsDao.insertActivity(newActivity)
+        val newActivity = Util.newLearningActivity(materialsId=insertedMaterialsId)
+        val insertedActivityId = learningMaterialsDao.insertActivity(newActivity)
 
         val allActivities = learningMaterialsDao.getAllActivities()
 
         assert(1 == allActivities.size)
 
-        newActivity.activityId = insertedId
+        newActivity.activityId = insertedActivityId
         Assert.assertEquals(newActivity, allActivities[0])
     }
 
     @Test
     fun insertQuestionAndGet() {
-        val newQuestion: QuestionDB = QuestionDB(
-            null,
-            12,
-            listOf("a", "b", "c"),
-            1,
-            "image.png"
-        )
+        // need LearningMaterials for FK
+        val newMaterials = Util.newLearningMaterials()
+        val insertedMaterialsId = learningMaterialsDao.insertMaterials(newMaterials)
 
-        val insertedId = learningMaterialsDao.insertQuestion(newQuestion)
+        // need LearningActivity for FK
+        val newActivity = Util.newLearningActivity(materialsId=insertedMaterialsId)
+        val insertedActivityId = learningMaterialsDao.insertActivity(newActivity)
+
+        val newQuestion = Util.newQuestion(activityId=insertedActivityId)
+        val insertedQuestionId = learningMaterialsDao.insertQuestion(newQuestion)
 
         val allQuestions = learningMaterialsDao.getAllQuestions()
 
         assert(1 == allQuestions.size)
 
-        newQuestion.questionId = insertedId
+        newQuestion.questionId = insertedQuestionId
         Assert.assertEquals(newQuestion, allQuestions[0])
+    }
+
+    @Test
+    fun insertLearningMaterialsWithActivitiesDBAndGet() {
+        val learningMaterials = learningMaterialsDao.insertDetailedLearningMaterials(
+            Util.newDetailedLearningMaterials())
+
+        // TODO
+        assert(false)
     }
 }

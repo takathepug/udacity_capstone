@@ -36,21 +36,26 @@ abstract class LearningMaterialsDao {
 
     // Complex operations
     @Transaction
-    open fun insert(learningMaterialsWithActivitiesDB: LearningMaterialsWithActivitiesDB): Long {
-        val learningMaterialsId = insertMaterials(learningMaterialsWithActivitiesDB.learningMaterials)
+    open fun insertDetailedLearningMaterials(
+        learningMaterialsWithActivitiesDB: LearningMaterialsWithActivitiesDB): LearningMaterialsWithActivitiesDB {
+
+        val insertedLearningMaterialsId = insertMaterials(learningMaterialsWithActivitiesDB.learningMaterials)
+        learningMaterialsWithActivitiesDB.learningMaterials.materialsId = insertedLearningMaterialsId
 
         // set FK materialsid
         for (l in learningMaterialsWithActivitiesDB.activities) {
             val learningActivity: LearningActivityDB = l.learningActivity
-            learningActivity.materialsId = learningMaterialsId
+            learningActivity.materialsId = insertedLearningMaterialsId
             val insertedActivityId = insertActivity(learningActivity)
-            for (a in l.questions) {
-                a.activityId = insertedActivityId
-                insertQuestion(a)
+            learningActivity.activityId = insertedActivityId
+            for (q in l.questions) {
+                q.activityId = insertedActivityId
+                val insertedQuestionId = insertQuestion(q)
+                q.questionId = insertedQuestionId
             }
         }
 
-        return learningMaterialsId
+        return learningMaterialsWithActivitiesDB
     }
 
     @Transaction
