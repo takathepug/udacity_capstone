@@ -12,42 +12,42 @@ import androidx.room.Transaction
 abstract class LearningMaterialsDao {
     // Materials
     @Query("SELECT * FROM materials")
-    abstract fun getAllMaterials(): List<LearningMaterialsDB>
+    abstract suspend fun getAllMaterials(): List<LearningMaterialsDB>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertMaterials(learningMaterialsDB: LearningMaterialsDB): Long
+    abstract suspend fun insertMaterials(learningMaterialsDB: LearningMaterialsDB): Long
 
     // Activities
     @Query("SELECT * FROM activity")
-    abstract fun getAllActivities(): List<LearningActivityDB>
+    abstract suspend fun getAllActivities(): List<LearningActivityDB>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertActivity(learningActivityDB: LearningActivityDB): Long
+    abstract suspend fun insertActivity(learningActivityDB: LearningActivityDB): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertActivities(learningActivityDB: List<LearningActivityDB>): List<Long>
+    abstract suspend fun insertActivities(learningActivityDB: List<LearningActivityDB>): List<Long>
 
     // Questions
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertQuestion(questionDB: QuestionDB): Long
+    abstract suspend fun insertQuestion(questionDB: QuestionDB): Long
 
     @Query("SELECT * FROM question")
-    abstract fun getAllQuestions(): List<QuestionDB>
+    abstract suspend fun getAllQuestions(): List<QuestionDB>
 
     // Complex operations
     @Transaction
-    open fun insertDetailedLearningMaterials(
-        learningMaterialsWithActivitiesDB: LearningMaterialsWithActivitiesDB): LearningMaterialsWithActivitiesDB {
+    open suspend fun insertDetailedLearningMaterials(
+        detailedLearningMaterialsDB: DetailedLearningMaterialsDB): DetailedLearningMaterialsDB {
 
-        val insertedLearningMaterialsId = insertMaterials(learningMaterialsWithActivitiesDB.learningMaterials)
-        learningMaterialsWithActivitiesDB.learningMaterials.materialsId = insertedLearningMaterialsId
+        val insertedLearningMaterialsId = insertMaterials(
+            detailedLearningMaterialsDB.learningMaterialsDB)
+        detailedLearningMaterialsDB.learningMaterialsDB.materialsId = insertedLearningMaterialsId
 
         // set FK materialsid
-        for (l in learningMaterialsWithActivitiesDB.activities) {
-            val learningActivity: LearningActivityDB = l.learningActivity
-            learningActivity.materialsId = insertedLearningMaterialsId
-            val insertedActivityId = insertActivity(learningActivity)
-            learningActivity.activityId = insertedActivityId
+        for (l in detailedLearningMaterialsDB.activities) {
+            l.learningActivityDB.materialsId = insertedLearningMaterialsId
+            val insertedActivityId = insertActivity(l.learningActivityDB)
+            l.learningActivityDB.activityId = insertedActivityId
             for (q in l.questions) {
                 q.activityId = insertedActivityId
                 val insertedQuestionId = insertQuestion(q)
@@ -55,10 +55,24 @@ abstract class LearningMaterialsDao {
             }
         }
 
-        return learningMaterialsWithActivitiesDB
+        return detailedLearningMaterialsDB
     }
 
     @Transaction
-    @Query("SELECT * FROM activity WHERE activityId = :activityId")
+    @Query("SELECT * FROM materials m JOIN activity a ON m.materialsid = a.materialsid " +
+            "WHERE m.materialsid = :materialsId")
+    abstract suspend fun getMaterialsWithActivities(materialsId: Long): Map<LearningMaterialsDB, List<LearningActivityDB>>
+/*
+    @Transaction
+    @Query("SELECT * FROM activity")
+    abstract suspend fun getActivitiesWithQuestions(): List<LearningActivityWithQuestionsDB>
+*/
+/*
+    @Query("SELECT * FROM materials m JOIN activity a ON m.materialsid = a.materialsid  WHERE materialsid = :materialsId")
+    abstract suspend fun getDetailedLearningMaterials(materialsId: Long): DetailedLearningMaterialsDB
+
+    @Transaction
+    @Query("SELECT * FROM activity WHERE activityid = :activityId")
     abstract fun getLearningActivityWithQuestions(activityId: Long): List<LearningActivityWithQuestionsDB>
+*/
 }

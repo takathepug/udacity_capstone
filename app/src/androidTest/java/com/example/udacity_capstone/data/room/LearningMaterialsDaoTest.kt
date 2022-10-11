@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
@@ -11,6 +13,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.IOException
 
+
+// https://github.com/Kotlin/kotlinx.coroutines/blob/master/kotlinx-coroutines-test/MIGRATION.md
+@ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 class LearningMaterialsDaoTest {
     private lateinit var learningMaterialsDao: LearningMaterialsDao
@@ -33,7 +38,7 @@ class LearningMaterialsDaoTest {
     }
 
     @Test
-    fun insertLearningMaterialsAndGet() {
+    fun insertLearningMaterialsAndGet() = runBlocking {
         val newMaterials = Util.newLearningMaterials()
         val insertedId = learningMaterialsDao.insertMaterials(newMaterials)
 
@@ -46,12 +51,12 @@ class LearningMaterialsDaoTest {
     }
 
     @Test
-    fun insertActivityAndGet() {
+    fun insertActivityAndGet() = runBlocking {
         // need LearningMaterials for FK
         val newMaterials = Util.newLearningMaterials()
         val insertedMaterialsId = learningMaterialsDao.insertMaterials(newMaterials)
 
-        val newActivity = Util.newLearningActivity(materialsId=insertedMaterialsId)
+        val newActivity = Util.newLearningActivity(materialsId = insertedMaterialsId)
         val insertedActivityId = learningMaterialsDao.insertActivity(newActivity)
 
         val allActivities = learningMaterialsDao.getAllActivities()
@@ -63,16 +68,16 @@ class LearningMaterialsDaoTest {
     }
 
     @Test
-    fun insertQuestionAndGet() {
+    fun insertQuestionAndGet() = runBlocking {
         // need LearningMaterials for FK
         val newMaterials = Util.newLearningMaterials()
         val insertedMaterialsId = learningMaterialsDao.insertMaterials(newMaterials)
 
         // need LearningActivity for FK
-        val newActivity = Util.newLearningActivity(materialsId=insertedMaterialsId)
+        val newActivity = Util.newLearningActivity(materialsId = insertedMaterialsId)
         val insertedActivityId = learningMaterialsDao.insertActivity(newActivity)
 
-        val newQuestion = Util.newQuestion(activityId=insertedActivityId)
+        val newQuestion = Util.newQuestion(activityId = insertedActivityId)
         val insertedQuestionId = learningMaterialsDao.insertQuestion(newQuestion)
 
         val allQuestions = learningMaterialsDao.getAllQuestions()
@@ -84,11 +89,15 @@ class LearningMaterialsDaoTest {
     }
 
     @Test
-    fun insertLearningMaterialsWithActivitiesDBAndGet() {
-        val learningMaterials = learningMaterialsDao.insertDetailedLearningMaterials(
-            Util.newDetailedLearningMaterials())
+    fun insertLearningMaterialsWithActivitiesDBAndGet() = runBlocking {
+        val detLearningMaterials = learningMaterialsDao.insertDetailedLearningMaterials(
+            Util.newDetailedLearningMaterials()
+        )
+
+        val l = learningMaterialsDao.getMaterialsWithActivities(
+            detLearningMaterials.learningMaterialsDB.materialsId!!)
 
         // TODO
-        assert(false)
+        assert(l.size == 1)
     }
 }

@@ -59,15 +59,15 @@ class Util {
             return questions
         }
 
-        fun newDetailedLearningMaterials(): LearningMaterialsWithActivitiesDB {
+        fun newDetailedLearningMaterials(): DetailedLearningMaterialsDB {
             // generate random number of random activities
             val activities: List<LearningActivityDB> = newLearningActivities()
             val activitiesWithQuestions = activities.map { a ->
-                LearningActivityWithQuestionsDB(a, newQuestions())
+                DetailedLearningActivityDB(a, newQuestions())
             }
 
             // generate random materials
-            return LearningMaterialsWithActivitiesDB(
+            return DetailedLearningMaterialsDB(
                 newLearningMaterials(),
                 activitiesWithQuestions
             )

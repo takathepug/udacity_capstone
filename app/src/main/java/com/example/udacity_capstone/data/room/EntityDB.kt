@@ -3,9 +3,6 @@ package com.example.udacity_capstone.data.room
 import androidx.room.*
 
 
-// https://stackoverflow.com/questions/53301274/room-insert-one-to-many-relation
-// https://gist.github.com/svasquezm/401e88bbacd16263d83aacaa0d7c45b7
-
 @Entity(tableName = "materials")
 data class LearningMaterialsDB(
     @PrimaryKey(autoGenerate = true)
@@ -16,7 +13,7 @@ data class LearningMaterialsDB(
     @ColumnInfo(name = "creation_time")
     val creationTime: String,
     @ColumnInfo(name = "description")
-    val description: String?
+    val description: String?,
 )
 
 @Entity(
@@ -67,25 +64,39 @@ data class QuestionDB(
     val image: String
 )
 
-// Relationships
-// Relationship Materials -> Activities
-data class LearningMaterialsWithActivitiesDB(
-    @Embedded
-    val learningMaterials: LearningMaterialsDB,
-    @Relation(
-        parentColumn = "materialsid",
-        entityColumn = "activityid"
-    )
-    val activities: List<LearningActivityWithQuestionsDB>
+// Composition of entities
+data class DetailedLearningMaterialsDB(
+    val learningMaterialsDB: LearningMaterialsDB,
+    val activities: List<DetailedLearningActivityDB>
 )
 
-// Relationship Activity -> Questions
-data class LearningActivityWithQuestionsDB(
-    @Embedded
-    val learningActivity: LearningActivityDB,
-    @Relation(
-        parentColumn = "activityid",
-        entityColumn = "questionid"
-    )
+data class DetailedLearningActivityDB(
+    val learningActivityDB: LearningActivityDB,
     val questions: List<QuestionDB>
 )
+
+// ##################
+/*
+data class LearningMaterialsWithActivitiesDB(
+    @Embedded
+    var learningMaterialsDB: LearningMaterialsDB,
+    @Relation(
+        parentColumn = "materialsid",
+        entityColumn = "materialsid"
+    )
+    val questions: List<LearningActivityWithQuestionsDB>
+) {
+    constructor() : this(LearningMaterialsDB(null, "", "", ""),
+        emptyList())
+}
+
+data class LearningActivityWithQuestionsDB(
+    @Embedded
+    val learningActivityDB: LearningActivityDB,
+    @Relation(
+        parentColumn = "activityid",
+        entityColumn = "activityid",
+        entity = QuestionDB::class
+    )
+    val questions: List<QuestionDB>
+)*/
