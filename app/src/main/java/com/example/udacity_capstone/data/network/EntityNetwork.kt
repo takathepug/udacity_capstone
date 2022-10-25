@@ -46,7 +46,7 @@ fun LearningMaterialsDTO.asDB(): DetailedLearningMaterialsDB {
 
 fun LearningActivityDTO.asDB(): LearningActivityDB {
     return LearningActivityDB(
-        null, null, uuid, name
+        null, null, name
     )
 }
 

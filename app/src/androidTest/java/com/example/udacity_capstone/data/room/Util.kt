@@ -26,7 +26,6 @@ class Util {
             return LearningActivityDB(
                 activityId,
                 materialsId,
-                UUID.randomUUID().toString(),
                 "The name ${Random.nextInt(0, 100)}"
             )
         }
@@ -52,7 +51,7 @@ class Util {
         }
 
         private fun newQuestions(activityId: Long? = null): List<QuestionDB> {
-            var questions = List<QuestionDB?>(Random.nextInt(1, 5)){ null }
+            var questions = List<QuestionDB?>(Random.nextInt(2, 5)){ null }
 
             questions = questions.map { newQuestion(activityId = activityId) }
 

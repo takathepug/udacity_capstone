@@ -90,14 +90,20 @@ class LearningMaterialsDaoTest {
 
     @Test
     fun insertLearningMaterialsWithActivitiesDBAndGet() = runBlocking {
-        val detLearningMaterials = learningMaterialsDao.insertDetailedLearningMaterials(
-            Util.newDetailedLearningMaterials()
+        val detLearningMaterials: DetailedLearningMaterialsDB =
+            learningMaterialsDao.insertDetailedLearningMaterials(
+                Util.newDetailedLearningMaterials()
+            )
+
+        val materialsMultiMap = learningMaterialsDao.getMaterialsWithActivities(
+            detLearningMaterials.learningMaterialsDB.materialsId!!
         )
 
-        val l = learningMaterialsDao.getMaterialsWithActivities(
-            detLearningMaterials.learningMaterialsDB.materialsId!!)
+        // compare learning materials
+        val insertedMaterials = detLearningMaterials.learningMaterialsDB
+        val obtainedMaterials = materialsMultiMap[insertedMaterials]
 
-        // TODO
-        assert(l.size == 1)
+        assert(materialsMultiMap.size == 1)
+        assert(obtainedMaterials != null)
     }
 }

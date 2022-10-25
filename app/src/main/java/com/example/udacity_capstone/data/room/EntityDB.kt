@@ -22,7 +22,7 @@ data class LearningMaterialsDB(
         ForeignKey(
             entity = LearningMaterialsDB::class,
             parentColumns = ["materialsid"],
-            childColumns = ["materialsid"],
+            childColumns = ["fkmaterialsid"],
             onDelete = ForeignKey.CASCADE
         )
     ]
@@ -31,10 +31,8 @@ data class LearningActivityDB(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "activityid")
     var activityId: Long?,
-    @ColumnInfo(name = "materialsid", index = true)
-    var materialsId: Long?,
-    @ColumnInfo(name = "uuid")
-    val uuid: String,
+    @ColumnInfo(name = "fkmaterialsid", index = true)
+    var fkMaterialsId: Long?,
     @ColumnInfo(name = "name")
     val name: String
 )

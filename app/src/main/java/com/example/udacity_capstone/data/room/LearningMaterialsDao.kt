@@ -45,7 +45,7 @@ abstract class LearningMaterialsDao {
 
         // set FK materialsid
         for (l in detailedLearningMaterialsDB.activities) {
-            l.learningActivityDB.materialsId = insertedLearningMaterialsId
+            l.learningActivityDB.fkMaterialsId = insertedLearningMaterialsId
             val insertedActivityId = insertActivity(l.learningActivityDB)
             l.learningActivityDB.activityId = insertedActivityId
             for (q in l.questions) {
@@ -58,10 +58,17 @@ abstract class LearningMaterialsDao {
         return detailedLearningMaterialsDB
     }
 
-    @Transaction
+/*    @Transaction
     @Query("SELECT * FROM materials m JOIN activity a ON m.materialsid = a.materialsid " +
             "WHERE m.materialsid = :materialsId")
-    abstract suspend fun getMaterialsWithActivities(materialsId: Long): Map<LearningMaterialsDB, List<LearningActivityDB>>
+    abstract suspend fun getMaterialsWithActivities(materialsId: Long): Map<LearningMaterialsDB, List<LearningActivityDB>>*/
+
+    @Transaction
+    @Query("SELECT * FROM materials m JOIN activity a ON m.materialsid = a.fkmaterialsid " +
+            "WHERE m.materialsid = :materialsId")
+    abstract suspend fun getMaterialsWithActivities(materialsId: Long):
+            Map<LearningMaterialsDB, List<LearningActivityDB>>
+
 /*
     @Transaction
     @Query("SELECT * FROM activity")
